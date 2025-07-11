@@ -1,81 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Game - GameNovaX</title>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <title>Play Game - GameNovaX</title>
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #111;
+      color: #fff;
+    }
+    header {
+      background: #1e1e1e;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
     .container {
-      max-width: 960px;
-      margin: 0 auto;
       padding: 20px;
       text-align: center;
     }
-    iframe {
+    .game-title {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    .game-wrapper iframe {
       width: 100%;
       height: 600px;
       border: none;
-      border-radius: 12px;
+      max-width: 100%;
     }
-    .back-btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #00ffcc;
-      color: black;
-      text-decoration: none;
-      border-radius: 6px;
+    @media (max-width: 768px) {
+      .game-wrapper iframe {
+        height: 500px;
+      }
     }
   </style>
 </head>
 <body>
-  <nav class="navbar">
-    <div class="logo">GameNovaX</div>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="privacy.html">Privacy Policy</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
 
-  <main class="container">
-    <h2 id="game-title">Loading...</h2>
-    <iframe id="game-frame" src=""></iframe>
-    <br>
-    <a href="index.html" class="back-btn">← Back to Games</a>
-  </main>
+<header>🎮 GameNovaX</header>
 
-  <footer>
-    &copy; 2025 GameNovaX. All rights reserved.
-  </footer>
+<main class="container">
+  <div class="game-title" id="game-title">Loading Game...</div>
+  <div class="game-wrapper" id="game-container"></div>
+</main>
 
-  <script>
-    // Game list (you can add many here!)
-    const games = {
-      "where-is-my-water": {
-        title: "Where is My Water",
-        iframe: "https://html5.gamemonetize.com/22l26luq9c2ppoq8brwyw8elv81evphs/"
-      },
-      "brainflip": {
-        title: "BrainFlip",
-        iframe: "https://html5.gamemonetize.com/b5vo0xprlu8hvqkawir1r69b7wdmsk35/"
-      }
-    };
-
-    // Read ?game=... from URL
-    const params = new URLSearchParams(window.location.search);
-    const gameKey = params.get("game");
-
-    if (gameKey && games[gameKey]) {
-      document.getElementById("game-title").innerText = games[gameKey].title;
-      document.getElementById("game-frame").src = games[gameKey].iframe;
-    } else {
-      document.getElementById("game-title").innerText = "Game Not Found";
-      document.getElementById("game-frame").style.display = "none";
+<script>
+  // ✅ Add your games here with full iframe HTML
+  const games = {
+    "brainflip": {
+      title: "BrainFlip",
+      iframe: `<iframe src="https://html5.gamemonetize.com/b5l7sxrfz8zo0eqasv4x97hd7wxgdf3h/index.html" width="100%" height="600" frameborder="0" allowfullscreen style="border:none;"></iframe>`
+    },
+    "where-is-my-water": {
+      title: "Where is My Water",
+      iframe: `<iframe src="https://html5.gamemonetize.com/22l26luq9c2ppoq8brwyw8elv81evphs/index.html" width="100%" height="600" frameborder="0" allowfullscreen style="border:none;"></iframe>`
     }
-  </script>
+    // 👉 Add more games below
+  };
+
+  const params = new URLSearchParams(window.location.search);
+  const gameKey = params.get("game");
+
+  if (games[gameKey]) {
+    document.getElementById("game-title").innerText = games[gameKey].title;
+    document.getElementById("game-container").innerHTML = games[gameKey].iframe;
+    document.title = `${games[gameKey].title} - GameNovaX`;
+  } else {
+    document.getElementById("game-title").innerText = "Game Not Found";
+    document.getElementById("game-container").innerHTML = "<p style='color: red;'>The game you’re looking for doesn't exist.</p>";
+  }
+</script>
+
 </body>
-    </html>
+</html>
